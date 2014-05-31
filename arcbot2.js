@@ -1,3 +1,9 @@
+/**
+ * Copyright by David Kamphausen <david.kamphausen76@googlemail.com>
+ *
+ * LICENSE under GPLv3
+ */
+
 var direction;
 
 var radius=300;
