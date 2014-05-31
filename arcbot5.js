@@ -9,6 +9,7 @@ var r2=r*0.5;
 var steps=0;
 
 var x=100,y=0;
+var hithead=0;
 
 var board=[];
 for(var i=0;i<201;i++) {
@@ -19,6 +20,11 @@ var dirmap={up:"right",
   right:"down",
   down:"left",
   left:"up"
+};
+var rdirmap={up:"left",
+  right:"up",
+  down:"right",
+  left:"down"
 };
 
 board[x][y]=1;
@@ -45,8 +51,19 @@ onmessage = function (event) {
 
   steps+=1;
 
-  if(steps>1000) {
-
+  if(hithead>15) {
+    var dx,dy;
+    direction=rdirmap[direction];
+    for(var i=0;i<3;i++) {
+      dx=xmap[direction];
+      dy=ymap[direction];
+      if(!board[x+dx][y+dy]) {
+        stepdone=true;
+        break;
+      }
+      direction=dirmap[direction];
+    }
+/*
     if(!board[x-1][y]) {
       direction="left"; stepdone=true;
     } else if(!board[x][y-1]) {
@@ -55,10 +72,10 @@ onmessage = function (event) {
       direction="right"; stepdone=true;
     } else if(!board[x][y+1]) {
       direction="down"; stepdone=true;
-    } 
-   /* if(!done) {
+    } */
+    /* if(!done) {
       direction=dirmap[direction];
-    }*/
+      }*/
 
   } 
   if(!stepdone) {
@@ -69,6 +86,7 @@ onmessage = function (event) {
     } else {
       alpha+=Math.random()*3;
       step*=-1;
+      hithead+=1;
     }
 
     var dx=Math.cos(alpha)-r2+Math.random()*r;
@@ -92,6 +110,8 @@ onmessage = function (event) {
     direction: direction
   });
 };
+
+
 
 
 

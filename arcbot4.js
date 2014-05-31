@@ -46,7 +46,17 @@ onmessage = function (event) {
   steps+=1;
 
   if(steps>1000) {
-
+    var dx,dy;
+    for(var i=0;i<3;i++) {
+      dx=xmap[direction];
+      dy=ymap[direction];
+      if(!board[x+dx][y+dy]) {
+        stepdone=true;
+        break;
+      }
+      direction=dirmap[direction];
+    }
+/*
     if(!board[x-1][y]) {
       direction="left"; stepdone=true;
     } else if(!board[x][y-1]) {
@@ -55,10 +65,10 @@ onmessage = function (event) {
       direction="right"; stepdone=true;
     } else if(!board[x][y+1]) {
       direction="down"; stepdone=true;
-    } 
-   /* if(!done) {
+    } */
+    /* if(!done) {
       direction=dirmap[direction];
-    }*/
+      }*/
 
   } 
   if(!stepdone) {
@@ -92,6 +102,7 @@ onmessage = function (event) {
     direction: direction
   });
 };
+
 
 
 
